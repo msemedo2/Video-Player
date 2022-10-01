@@ -1,14 +1,15 @@
-const video = document.querySelector('video');
+const player = document.querySelector('.player');
+const video = document.querySelector('.video');
 const progressRange = document.querySelector('.progress-range');
 const progressBar = document.querySelector('.progress-bar');
 const playBtn = document.getElementById('play-btn');
-const volume = document.getElementById('volume-icon');
+const volumeIcon = document.getElementById('volume-icon');
 const volumeRange = document.querySelector('.volume-range');
 const volumeBar = document.querySelector('.volume-bar');
 const speed = document.querySelector('.player-speed');
-const currentTime = document.querySelector('.time-elapse');
+const currentTime = document.querySelector('.time-elapsed');
 const duration = document.querySelector('.time-duration');
-const fullscreen = document.querySelector('.fullscreen');
+const fullscreenBtn = document.querySelector('.fullscreen');
 
 // Play & Pause ----------------------------------- //
 function showPlayIcon() {
@@ -32,14 +33,19 @@ video.addEventListener('ended', showPlayIcon);
 
 // Progress Bar ---------------------------------- //
 
-// Update Progress bar as video plays
-function updateProgress() {
-	const totalDuration = video.duration;
-	let time = video.currentTime;
-	timePercentage = (time / totalDuration) * 100;
-	progressBar.style.width = `${timePercentage}%`;
+// Format current time, duration
+function displayTime(time) {
+	const minutes = Math.floor(time / 60);
+	let seconds = Math.floor(time % 60);
+	seconds = seconds > 9 ? seconds : `0${seconds}`;
+	return `${minutes}:${seconds}`;
+}
 
-	console.log('currentTime', time, 'duration', totalDuration);
+// Update progress bar as video plays
+function updateProgress() {
+	progressBar.style.width = `${(video.currentTime / video.duration) * 100}%`;
+	currentTime.textContent = `${displayTime(video.currentTime)} /`;
+	duration.textContent = `${displayTime(video.duration)}`;
 }
 
 // Volume Controls --------------------------- //
