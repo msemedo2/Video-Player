@@ -146,13 +146,12 @@ video {
 
 .volume-bar {
 	background: var(--font-color);
-	width: 100%;
 	height: 100%;
 	border-radius: 10px;
 	transition: width 0.2s ease-in;
 }
 
-.volume-bar:hover {
+.volume-range:hover .volume-bar {
 	background: var(--primary-color);
 }
 
